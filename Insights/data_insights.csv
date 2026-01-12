@@ -1,0 +1,66 @@
+MoPhones Quarterly Loan Portfolio Performance Narrative
+1. Portfolio Growth and Loan Activity
+
+Over the observed period (Q1–Q5), MoPhones’ loan portfolio demonstrated consistent growth in both loan volume and total disbursed amounts:
+
+Quarter	Total Loans	Total Paid (KES)	Total Balance (KES)	Avg Days Past Due
+Q1	8,935	285,972,311	342,159,292	71.9
+Q2	11,024	385,238,264	400,105,302	90.4
+Q4	16,864	635,791,130	546,717,923	119.2
+Q5	20,742	793,946,581	668,661,498	128.2
+
+The number of active loans grew more than twofold from Q1 to Q5, reflecting increased customer adoption and trust in MoPhones’ lending products.
+
+Total collections increased proportionally, demonstrating steady repayment activity.
+
+However, the total outstanding balance also grew, suggesting that new disbursements outpaced repayments.
+
+2. Customer Repayment Behavior
+
+Analysis of individual repayment patterns reveals:
+
+Many borrowers are paying on time, but a rising segment shows delayed repayments, as indicated by the increase in average days past due from 71.9 (Q1) to 128.2 (Q5).
+
+Loan balances vary significantly by customer, and arrears are concentrated in a subset of accounts, indicating that targeted collections could be more effective than blanket follow-ups.
+
+Payment amounts in fact_payments show that some borrowers are underpaying or making partial payments, which may affect liquidity and risk exposure.
+
+3. Account Status Distribution
+
+int_loans account statuses show that the majority of accounts remain active and in good standing, but there is a noticeable shift toward delinquent or overdue statuses in later quarters.
+
+This trend highlights the importance of risk monitoring as the portfolio scales.
+
+4. Portfolio Health and Risk Metrics
+
+Key metrics to track portfolio performance and credit risk include:
+
+Total loans and total balances – indicate scale and exposure.
+
+Average days past due (DPD) – measures repayment delays and emerging risk.
+
+Payment recovery rates vs. expected payments – monitors cash flow efficiency.
+
+Account status distribution – flags delinquent, overdue, or defaulting accounts.
+
+These metrics provide a clear view of both portfolio growth and emerging credit risks.
+
+5. Customer Satisfaction Considerations
+
+While payment recovery is critical, aggressive collections may affect customer satisfaction (NPS).
+
+Balancing timely recovery with a positive customer experience is key for sustainable portfolio growth.
+
+6. Observations and Recommendations
+
+Delinquency is increasing in later quarters, signaling the need for improved early warning systems and risk segmentation.
+
+Missing LOAN_TERM and CUSTOMER_ID fields in some records limit the ability to fully segment and analyze risk.
+
+Data quality improvements are recommended: ensure unique LOAN_IDs, capture all customer identifiers, and reduce missing or inconsistent fields.
+
+Targeted repayment reminders and flexible payment plans could reduce arrears without negatively impacting customer satisfaction.
+
+Summary
+
+MoPhones’ loan portfolio is growing rapidly, with increasing total loans and collections. However, rising balances, increasing DPD, and delinquent accounts indicate emerging credit risk. Tracking key metrics and improving data quality will be critical for maintaining healthy cash flow and supporting sustainable growth.

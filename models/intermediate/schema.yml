@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: int_loans
+    description: "Intermediate model combining credit and sales data with calculated loan metrics per customer."
+    columns:
+      - name: loan_id
+        description: "Unique loan identifier"
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        description: "Unique customer identifier"
+      
+
+      - name: total_paid
+        description: "Total amount paid by customer"
+        tests:
+          - not_null
+
+      - name: balance
+        description: "Current balance remaining on the loan"
+        tests:
+          - not_null
+
+      - name: days_past_due
+        description: "Number of days the loan is past due"
+
+      - name: LOAN_TERM
+        description: "Loan term in months"
+        tests:
+          - not_null
+
+      - name: quarter
+        description: "Quarter of the data (Q1-Q5)"
+        tests:
+          - not_null

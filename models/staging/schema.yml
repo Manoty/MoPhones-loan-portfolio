@@ -1,0 +1,54 @@
+version: 2
+
+models:
+
+  - name: stg_credit
+    description: "Staging table for credit data, combines all quarters and cleans fields."
+    columns:
+      - name: loan_id
+        description: "Unique loan identifier"
+       
+      
+
+      - name: total_paid
+        description: "Total amount paid by customer"
+      
+
+      - name: balance
+        description: "Current balance remaining"
+        tests:
+          - not_null
+
+      - name: LOAN_TERM
+        description: "Loan term in months"
+        
+
+      - name: discount
+        description: "Any discount applied to payment"
+
+      - name: overpayment_amount
+        description: "Extra payment amount beyond the due"
+
+      - name: total_paid_with_adjustments_15d
+        description: "Total paid including adjustments within 15 days"
+
+
+  - name: stg_sales_customers
+    description: "Staging table for sales and customer info."
+    columns:
+      - name: loan_id
+        description: "Loan identifier"
+        
+
+      - name: sale_id
+        description: "Unique sale identifier"
+      
+
+      
+
+      - name: LOAN_TERM
+        description: "Loan term in months"
+      
+     
+
+  

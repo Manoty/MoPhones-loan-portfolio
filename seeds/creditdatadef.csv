@@ -1,0 +1,34 @@
+﻿Column Name,Definition
+LOAN_ID,Unique identifier for the loan.
+DATE,Reporting (snapshot) date on which all loan metrics and statuses are calculated.
+CUSTOMER_AGE,Number of days since the loan sale date (SALE_DATE).
+TOTAL_PAID,"Cumulative amount paid by the customer up to the reporting date, excluding adjustments."
+TOTAL_DUE_TODAY,Total amount the customer is expected to have paid by the reporting date based on loan terms.
+BALANCE,"Outstanding loan balance after accounting for payments, adjustments, discounts, and deposits."
+DAYS_PAST_DUE,Number of days the customer is behind on payments when arrears exist.
+CLOSING_BALANCE,"Final balance for reporting; set to zero if the loan is paid off, otherwise equals BALANCE."
+ADVANCE,Amount the customer has paid ahead of schedule relative to expected payments.
+BALANCE_DUE_TO_DATE,"Net payment position of the customer; positive indicates advance, negative indicates arrears."
+ARREARS,Amount the customer is behind on payments as of the reporting date.
+BALANCE_DUE_STATUS,"High-level payment status: advance, up to date, or Arrears."
+PAYMENT,Indicator showing whether a payment activity occurred on the reporting date.
+EXPECTED_PAYMENT,Payment amount expected for the reporting period based on the repayment schedule.
+FIRST_PAYMENT,First payment amount made by the customer after loan activation.
+FIRST_EXPECTED_PAYMENT,Expected amount for the first scheduled repayment after sale.
+ACCOUNT_STATUS_L1,"Detailed credit status classification (e.g. Active, FPD, FMD, Inactive, Blocked, Paid Off, Return)."
+ACCOUNT_STATUS_L2,"High-level portfolio grouping derived from L1 statuses (e.g. Active, FPD, PAR 7, PAR 30, Paid Off)."
+RETURN_DATE,"Date the device was returned by the customer, if applicable."
+SALE_DATE,Loan origination date when the device was sold.
+CREDIT_CHECK_DONE,Result or status of the credit check performed at onboarding.
+PAYMENT_AMOUNT,Regular payment amount recorded on the reporting date.
+ADJUSTMENT_AMOUNT,Adjustment applied to the loan balance on the reporting date (positive or negative).
+PREPAYMENT_AMOUNT,"Amount paid in advance, typically recorded at or before the sale date."
+DEPOSIT,Upfront payment made by the customer at loan origination.
+WEEKLY_RATE,Scheduled weekly repayment amount for the loan.
+CREDIT_EXPIRY,Date when the credit term is expected to end based on payments made.
+NEXT_INVOICE_DATE,Next scheduled repayment due date.
+DISCOUNT,Discount applied to the loan or cash price.
+OVERPAYMENT_AMOUNT,Amount paid in excess of the total expected loan obligation.
+MAX_PAYMENT_DATE,Most recent date on which a payment was recorded for the loan.
+INITIAL_PAY,"Initial payment made at the start of the loan, including deposit and early payments."
+TOTAL_PAID_WITH_ADJUSTMENTS_15D,"Total payments plus adjustments made within the first 15 days of loan activation, used for default classification logic."
