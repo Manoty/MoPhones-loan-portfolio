@@ -32,19 +32,19 @@ fact_ / agg_ / reports_ → analytics & reporting
 
 🧱 Models
 Model	Description
-stg_credit	Staging model that unions credit data from all quarters (creditdata-q1 → creditdata-q5). Cleans data types, dates, and standardizes fields.
+stg_credit-	Staging model that unions credit data from all quarters (creditdata-q1 → creditdata-q5). Cleans data types, dates, and standardizes fields.
 
-stg_sales_customers	Cleans and standardizes sales and customer attributes, including loan terms and identifiers.
+stg_sales_customers -	Cleans and standardizes sales and customer attributes, including loan terms and identifiers.
 
-int_loans	Core intermediate model aggregating loans across quarters. Calculates balances, arrears indicators, and customer-level metrics.
+int_loans -	Core intermediate model aggregating loans across quarters. Calculates balances, arrears indicators, and customer-level metrics.
 
-fact_payments	Fact table capturing payment activity, expected payments, and timing behavior by loan and quarter.
+fact_payments -	Fact table capturing payment activity, expected payments, and timing behavior by loan and quarter.
 
-agg_loans_by_quarter	Aggregated quarterly portfolio metrics: loan count, total paid, outstanding balance, and average days past due.
+agg_loans_by_quarter -	Aggregated quarterly portfolio metrics: loan count, total paid, outstanding balance, and average days past due.
 
-fact_nps	Customer satisfaction (NPS) scores linked at a high level to loan and payment behavior.
+fact_nps -	Customer satisfaction (NPS) scores linked at a high level to loan and payment behavior.
 
-reports.account_status	Reporting-ready view summarizing account status distribution across quarters.
+reports.account_status -	Reporting-ready view summarizing account status distribution across quarters.
 
 reports.quarterly_summary	Executive-style quarterly snapshot of portfolio health metrics.
 
@@ -166,7 +166,7 @@ Integrate credit outcomes with NPS more tightly to balance recovery and customer
 
 Add automated alerts for rising delinquency and high-risk segments
 
-ℹ️ What This Project Is (and Isn’t)
+ℹ️ What This Project Is 
 
 This project is:
 
