@@ -54,16 +54,21 @@ stg_ models are strictly for data cleanliness.
 int_, fact_, agg_, and reports_ models are used for analysis and storytelling.
 
 ▶️ How to Run the Pipeline
+
 1️⃣ Activate the Python environment
+
 conda activate dbt-env
 
 2️⃣ Install dependencies
+
 dbt deps
 
 3️⃣ Run all models
+
 dbt run
 
 4️⃣ Run data quality tests
+
 dbt test
 
 👀 Preview Real Data in the Terminal (Recommended as its easier with few setup)
