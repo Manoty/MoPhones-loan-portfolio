@@ -1,113 +1,177 @@
 MoPhones Credit Portfolio Analysis
 
-This project provides an analysis of MoPhones’ credit portfolio across multiple quarters, focusing on loan performance, repayment behavior, arrears, and account statuses. The pipeline is built using dbt with DuckDB as the underlying database.
+This project analyzes MoPhones’ credit portfolio performance across multiple quarters (Q1–Q5), focusing on loan performance, repayment behavior, arrears, defaults, and account status distributions.
 
-Project Overview
+The analytics pipeline is built using dbt with DuckDB as the underlying analytical database.
 
-The purpose of this project is to generate actionable insights into MoPhones’ credit portfolio. The analysis covers:
+📌 Project Overview
 
-Quarterly loan performance: total loans, total paid, balances, and delinquency trends.
+The goal of this project is to generate clear, decision-ready insights into MoPhones’ credit portfolio, while maintaining a clean, modular analytics structure that can scale as new data becomes available.
 
-Customer repayment behavior: timing, arrears, and payment consistency.
+Key areas covered include:
 
-Account status distributions: across different customer segments.
+Quarterly loan performance
+Total loans issued, collections, outstanding balances, and delinquency trends.
 
-Integration with customer experience: linking credit performance to satisfaction metrics (NPS).
+Customer repayment behavior
+Payment timing, arrears, missed payments, and recovery patterns.
 
-All data is modeled in staging (stg_), intermediate (int_), and fact (fact_) tables to allow scalable analysis over time.
+Account status distribution
+Portfolio composition across repayment states (active, late, defaulted, etc.).
 
-Models
+Customer experience linkage
+High-level relationship between credit outcomes and customer satisfaction (NPS).
+
+The project follows a layered dbt architecture:
+
+stg_ → clean raw inputs
+
+int_ → business logic & transformations
+
+fact_ / agg_ / reports_ → analytics & reporting
+
+🧱 Models
 Model	Description
-stg_credit	Staging table combining credit data from all quarters. Cleans and normalizes raw quarterly datasets (creditdata-q1 through creditdata-q5).
-stg_sales_customers	Staging table for sales and customer information. Cleans and standardizes identifiers and loan terms.
-int_loans	Intermediate table aggregating all loans across quarters. Calculates balances, arrears, and customer-level metrics.
-fact_payments	Fact table capturing individual payments, expected payments, and adjustments over time.
-agg_loans_by_quarter	Aggregated metrics by quarter: total loans, total paid, total balance, and average days past due.
-fact_nps	Fact table for customer satisfaction (NPS) scores, linked to loan and payment behavior.
+stg_credit	Staging model that unions credit data from all quarters (creditdata-q1 → creditdata-q5). Cleans data types, dates, and standardizes fields.
 
-Note: All stg_ tables serve as clean staging layers for raw inputs, while int_ and fact_ tables are used for analysis and reporting.
+stg_sales_customers	Cleans and standardizes sales and customer attributes, including loan terms and identifiers.
 
-How to Run the Pipeline
+int_loans	Core intermediate model aggregating loans across quarters. Calculates balances, arrears indicators, and customer-level metrics.
 
-Activate the Python environment
+fact_payments	Fact table capturing payment activity, expected payments, and timing behavior by loan and quarter.
 
+agg_loans_by_quarter	Aggregated quarterly portfolio metrics: loan count, total paid, outstanding balance, and average days past due.
+
+fact_nps	Customer satisfaction (NPS) scores linked at a high level to loan and payment behavior.
+
+reports.account_status	Reporting-ready view summarizing account status distribution across quarters.
+
+reports.quarterly_summary	Executive-style quarterly snapshot of portfolio health metrics.
+
+
+Note:
+stg_ models are strictly for data cleanliness.
+int_, fact_, agg_, and reports_ models are used for analysis and storytelling.
+
+▶️ How to Run the Pipeline
+1️⃣ Activate the Python environment
 conda activate dbt-env
 
-
-Install dependencies
-
+2️⃣ Install dependencies
 dbt deps
 
-
-Run dbt models
-
+3️⃣ Run all models
 dbt run
 
-
-Test the data
-
+4️⃣ Run data quality tests
 dbt test
 
+👀 Preview Real Data in the Terminal (Recommended as its easier with few setup)
 
-Preview any model (for a snapshot of data)
+This project uses DuckDB, so you do not need to install DuckDB separately to view results.
+dbt can query DuckDB directly and preview live data.
 
+Preview any model
 dbt show --select <model_name>
 
-
-Data Flow
-
-Raw quarterly credit datasets (creditdata-q1 to creditdata-q5) are ingested into staging tables (stg_credit).
-
-Sales and customer information is cleaned in stg_sales_customers.
-
-Staging data is merged and aggregated in int_loans.
-
-Payment events are captured in fact_payments.
-
-Aggregated quarterly metrics are generated in agg_loans_by_quarter for reporting.
-
-Insights are exported in the insights/data_insights_Q1-Q5.xlsx file for analysis.
+Examples
+dbt show --select int_loans
+dbt show --select fact_payments
+dbt show --select agg_loans_by_quarter
+dbt show --select reports.account_status
 
 
-Known Limitations
+This allows reviewers to:
+
+Inspect real transformed data
+
+Validate assumptions
+
+See results without exporting files or opening a database UI
+
+🔄 Data Flow
+
+Raw quarterly credit datasets (creditdata-q1 → creditdata-q5)
+→ staged in stg_credit
+
+Sales & customer reference data
+→ cleaned in stg_sales_customers
+
+Loan-level aggregation & metrics
+→ built in int_loans
+
+Payment behavior modeling
+→ captured in fact_payments
+
+Quarterly portfolio summaries
+→ produced in agg_loans_by_quarter and reports models
+
+Analytical insights
+→ summarized separately in Insights/data_insights.csv
+
+⚠️ Known Limitations
+
+This analysis is constrained by several data quality and structural limitations:
+
+Duplicate LOAN_IDs
+Some loans appear multiple times, which may inflate aggregates.
+
+Missing LOAN_TERM
+Limits term-based and maturity analysis.
+
+Missing customer identifiers
+Reduces accuracy of customer-level segmentation and lifecycle tracking.
+
+Point-in-time snapshots
+Quarterly data represents fixed dates; intra-quarter changes are not observable.
+
+Field inconsistencies across quarters
+Columns such as balance, discount, or overpayment_amount are not consistently populated.
+
+As a result, findings should be interpreted as directional portfolio insights, not operational truth.
+
+📊 Outputs / Insights
+
+Detailed analytical outputs are stored separately in:
+
+Insights/data_insights.csv
 
 
-Duplicate LOAN_IDs: Some records share the same LOAN_ID, which may inflate aggregates.
+This file contains:
 
-Missing LOAN_TERM: Several loans do not have term information, limiting term-based analysis.
+Quarterly loan volumes and collections
 
-Missing Customer IDs: Some payment or loan records are missing customer identifiers, affecting customer-level segmentation.
+Outstanding balances and delinquency trends
 
-Point-in-time snapshots: Data represents specific dates per quarter; changes between snapshots are not tracked continuously.
+Account status distributions
 
-Staging inconsistencies: Some fields (e.g., balance, discount, overpayment_amount) are missing for certain quarters.
+High-level portfolio health indicators
 
-Users should interpret trends with these limitations in mind. Further cleaning or enrichment is recommended for operational decision-making.
+Why separate?
+The README remains public and technical, while insights stay focused, controlled, and presentation-ready.
 
+📈 Recommendations
 
-Output / Insights
+Based on the analysis and data limitations:
 
+Enforce unique customer and loan identifiers
 
-Detailed portfolio analysis is available in the insights/data_insights_Q1-Q5.xlsx file. This includes:
+Track LOAN_TERM consistently across all records
 
-Quarterly loan volumes, total collections, outstanding balances, and average delinquency.
+Flag duplicate LOAN_IDs at ingestion time
 
-Distribution of account statuses across customer segments.
+Capture continuous payment events, not just quarter-end snapshots
 
-Payment timing and arrears trends.
+Integrate credit outcomes with NPS more tightly to balance recovery and customer experience
 
-High-level insights into portfolio health and risk metrics.
+Add automated alerts for rising delinquency and high-risk segments
 
+ℹ️ What This Project Is (and Isn’t)
 
-Recommendations
+This project is:
 
+An analytical portfolio assessment
 
-Track customer-level LOAN_TERM and unique customer IDs consistently across all quarters.
+A dbt-modeled credit data pipeline
 
-Flag duplicate LOAN_IDs early to avoid inflated metrics.
-
-Incorporate continuous payment monitoring between quarter snapshots.
-
-Integrate NPS and other satisfaction metrics directly with payment recovery performance to balance risk and customer experience.
-
-Enhance reporting to highlight delinquency trends, high-risk segments, and overdue balances dynamically.
+Designed for insight generation and learning
