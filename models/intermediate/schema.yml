@@ -31,6 +31,10 @@ models:
         description: "Loan term in months"
         tests:
           - not_null
+      - unique:
+        column_name: ["loan_id", "quarter"]
+        severity: warn
+
 
       - name: quarter
         description: "Quarter of the data (Q1-Q5)"
